@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Search Organization</title>
+    <style>
+        .menu {
+            display: none;
+        }
+        .menu.active {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{/css/magicsuggest.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/js/jquery-1.12.4.min.js}" ></script>
+    <script th:src="@{/js/magicsuggest.js}"></script>
+</head>
+
+<body>
+<div class="main-content-user-wrapper">
+    <div class="row">
+        <div class="main-content-user">
+            <div class="action">
+                <div class="profile" onclick="menuToggle();">
+                    <img src="/image/profile-logo.png" />
+                </div>
+                <div class="menu" onclick="menuToggle();">
+                    <h3 id="userData" ></h3>
+                    <ul>
+                        <li>
+                            <img src="/image/log-out.png" /><a href="#" th:href="@{/logout}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="navbar_top" class="container-custom">
+                <div id="ms1" class="form-control"></div>
+                <form id="searchform" th:action="@{/organization/Search-org}" th:object="${organizationSearch}" method="POST">
+                    <input  type="hidden" id="skillsSearch" name="skillsSearch" />
+                    <input class="hidden" type="submit" id="submit-search"/>
+                </form>
+                <div class="get-item" >Search</div>
+            </div>
+        </div>
+    </div>
+    <div class="row custom-results-row">
+            <div class="search-content" >
+                <div th:each="organization,iter : ${listOrganization}" class="glassmorphic" >
+                    <span th:class="${iter.index}">
+                        <h3 th:text="${organization.name}"></h3>
+                        <span th:text="'Skills: ' + ${#strings.arrayJoin(organization.skills.![name], ', ')}"></span>
+                    </span>
+                </div>
+            </div>
+        <div class="search-content-detail-wrapper">
+            <div th:each="organization,iter : ${listOrganization}" th:class="'content-'+${iter.index} + ' search-content-detail hidden'">
+                <h3 th:text="${organization.name}"></h3>
+                <div class="about">
+                    <label>About:</label>
+                    <span th:text="${organization.about}"></span>
+                </div>
+                <div class="address">
+                    <label>Address:</label>
+                    <span class="full-address">
+                        <span th:text="${organization.address}"></span>
+                        <span th:text="${organization.city}"></span>
+                        <span th:text="${organization.state}"></span>
+                    </span>
+                </div>
+                <div class="org-contact">
+                    <div class="contact">
+                        <label>Contact:</label>
+                        <span th:text="${organization.contact}"></span>
+                    </div>
+                    <div class="email">
+                        <label>Email:</label>
+                        <span th:text="${organization.email}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+window.addEventListener('scroll', function() {
+console.log('ddfdfdfdfdfd')
+  if (window.scrollY > 50) {
+    document.getElementById('navbar_top').classList.add('fixed-top');
+    // add padding top to show content behind navbar
+    navbar_height = document.querySelector('.container-custom').offsetHeight;
+    document.body.style.paddingTop = navbar_height + 'px';
+  } else {
+    document.getElementById('navbar_top').classList.remove('fixed-top');
+     // remove padding top from body
+    document.body.style.paddingTop = '0';
+  }
+});
+});
+$( document ).ready(function() {
+$("h3").on('click', function(){
+    const clicked_index = $(this).parent().attr('class');
+    $('.search-content-detail').addClass('hidden');
+    $(`.content-${clicked_index}`).removeClass('hidden');
+})
+
+    let search_array = [];
+    $('.get-item').click(function() {
+        $('.ms-sel-item').each(function(e){
+          search_array.push($(this).text());
+          if($('.ms-sel-item').length - 1 == e){
+            let search_array_string = search_array.join(",")
+                $("#skillsSearch").val(search_array_string)
+                $("#submit-search").click()
+            }
+        })
+    });
+
+$(function() {
+        const skills_data = $.get("http://localhost:8080/all", function(data, status){
+        var ms1 = $('#ms1').magicSuggest({
+              data: data,
+              hideTrigger: true,
+              placeholder: "Enter Skills or Organization to begin search..."
+            })
+    });
+            const userDataApi = $.get("http://localhost:8080/profile", function(data, status){
+        var userData = data
+        document.getElementById("userData").innerHTML = `${userData.firstName + " " + userData.lastName}`;
+    });
+    });
+});
+</script>
+<script>
+    function menuToggle() {
+      const toggleMenu = document.querySelector(".menu");
+      toggleMenu.classList.toggle("active");
+    }
+    document.addEventListener('click', function(event) {
+        const menu = document.querySelector('.menu');
+        const profile = document.querySelector('.profile');
+        if (!menu.contains(event.target) && !profile.contains(event.target)) {
+            menu.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>

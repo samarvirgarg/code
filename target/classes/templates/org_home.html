@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Organizations List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<div class="main-content-wrapper">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="main-content">
+        <div class="header">
+            <span class="header-text">Organisations List</span>
+
+<!--                <form th:action="@{/organization/Search-org}" th:object="${organizationSearch}" method="POST">-->
+<!--                    <input  type="text" id="skillsSearch" name="skillsSearch"  />-->
+<!--                </form>-->
+
+            <form th:action="@{/organization/Search-org}" th:object="${organizationSearch}" method="get">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="skillsSearch" placeholder="Search..." th:value="${param.skillsSearch}">
+                </div>
+            </form>
+
+            <a th:href="@{/organization/showNewOrganizationForm}" class="add-content"> <i class="fa fa-plus" aria-hidden="true"></i> Add Organisation</a>
+        </div>
+        <div class="content">
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Organization Name</th>
+                    <th scope="col">Organization Email</th>
+                    <th scope="col">Organization Address</th>
+                    <th scope="col">Organization City</th>
+                    <th scope="col">Organization State </th>
+                    <th scope="col">Organization Contact </th>
+                    <th scope="col">Organization Skill </th>
+                    <th scope="col">Actions </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="organization : ${listOrganization}">
+                    <td th:text="${organization.name}"></td>
+                    <td th:text="${organization.email}"></td>
+                    <td th:text="${organization.address}"></td>
+                    <td th:text="${organization.city}"></td>
+                    <td th:text="${organization.state}"></td>
+                    <td th:text="${organization.contact}"></td>
+
+                    <!-- Displaying skill information -->
+                    <td>
+                        <span th:each="skill : ${organization.skills}" th:text="${skill.name} + ', '"></span>
+                    </td>
+
+                    <td> <a th:href="@{/organization/showFormForUpdate/{id}(id=${organization.orgId})}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        <a th:href="@{/organization/deleteOrganization/{id}(id=${organization.orgId})}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

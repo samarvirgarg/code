@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Organization Update</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<div class="main-content-wrapper">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="main-content">
+        <div class="header">
+            <span class="header-text">Organisation Register Form</span>
+            <a th:href="@{/organization/}" class="cancel-button">Cancel</a>
+        </div>
+        <div class="content">
+            <form class="organisation-register-form" action="#" th:action="@{/organization/saveOrganization}" th:object="${organization}" method="POST">
+                <!-- Add hidden form field to handle update -->
+                <input type="hidden" th:field="*{orgId}" />
+                <div class="form-group">
+                    <label class="control-label" for="name"> Name </label>
+                    <input id="name" type="text" th:field="*{name}" class="form-control mb-4 col-4">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="email"> Email </label>
+                <input id="email" type="text" th:field="*{email}" class="form-control mb-4 col-4">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="address"> Address </label>
+                <input id="address" type="text" th:field="*{address}" class="form-control mb-4 col-4">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="city"> City </label>
+                <input id="city" type="text" th:field="*{city}" class="form-control mb-4 col-4">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="state"> State </label>
+                <input id="state" type="text" th:field="*{state}" class="form-control mb-4 col-4">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="contact"> Contact </label>
+                <input id="contact" type="text" th:field="*{contact}" class="form-control mb-4 col-4">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="contact"> About </label>
+                    <textarea id="about" type="text" th:field="*{about}" class="form-control mb-4 col-4" />
+                </div>
+                <label class="control-label" for="skills"> Skills </label>
+                <select multiple="multiple" id="skills" th:field="*{skills}">
+                    <option th:each="skill : ${skills}" th:value="${skill}" th:text="${skill.name}" th:selected="${selectedSkillIds.contains(skill.name)}"></option>
+                </select><b />
+                <div class="form-group">
+                    <button type="submit" class="save-form-data-button">Update Organization</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
