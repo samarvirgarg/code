@@ -1,4 +1,5 @@
 package com.knf.dev.service.ServiceImpl.OrganizationImpl;
+
 import com.knf.dev.model.Organization.Organization;
 import com.knf.dev.model.Skill.Skill;
 import com.knf.dev.repository.OrganizationRepo.OrganizationRepository;
@@ -24,7 +25,6 @@ public class OrganizationServiceImpl implements OrganizationService {
     private SkillRepository skillRepository;
 
 
-
     public OrganizationServiceImpl(OrganizationRepository organizationRepository) {
         this.organizationRepository = organizationRepository;
     }
@@ -45,22 +45,18 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         Optional<Organization> org_optional = organizationRepository.findById(OrgID);
         Organization organization = null;
-
         if (org_optional.isPresent()) {
             organization = org_optional.get();
         } else {
             throw new RuntimeException("Organization not found for id :: " + OrgID);
         }
-
         return organization;
     }
 
     @Override
     @Transactional
     public void deleteOrganizationById(long id) {
-        Organization organization = organizationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Organization not found with id: " + id));
-        // Disassociate the organization from its skills
+        Organization organization = organizationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Organization not found with id: " + id));
         organization.getSkills().clear();
         this.organizationRepository.deleteById(id);
     }

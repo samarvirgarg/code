@@ -5,6 +5,7 @@ import com.knf.dev.model.Skill.Skill;
 import com.knf.dev.repository.SkillRepo.SkillRepository;
 import com.knf.dev.service.Service.Skill.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +21,12 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public List<Skill> getAllSkills() {
-        return skillRepository.findAll();
+        return skillRepository.getskill();
     }
 
     @Override
     public List<Skill> getSelectedSkillsForOrganization(Organization organization) {
-        return  skillRepository.findAllAndSelected(organization);
+        return skillRepository.findAllAndSelected(organization);
     }
 
     @Override

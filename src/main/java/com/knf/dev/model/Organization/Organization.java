@@ -40,13 +40,24 @@ public class Organization {
     @Column(name = "about", length = 100000)
     private String about;
 
-    //many organization
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private OrganizationType type;
+
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Skill> skills = new ArrayList<>();
 
     @Transient
     private String skillsSearch;
 
+
+    public OrganizationType getType() {
+        return type;
+    }
+
+    public void setType(OrganizationType type) {
+        this.type = type;
+    }
 
     public String getAbout() {
         return about;

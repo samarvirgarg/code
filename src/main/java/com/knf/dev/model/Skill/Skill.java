@@ -11,10 +11,10 @@ import java.util.Set;
 public class Skill {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long skillId;
 
-    @Column( name = "name", unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
 

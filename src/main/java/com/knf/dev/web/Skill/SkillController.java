@@ -20,69 +20,92 @@ public class SkillController {
     private SkillService skillService;
 
 
+    /**
+     * Skill Index
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     public String getAllSkills(Model model) {
         List<Skill> skillList = skillService.getAllSkills();
         model.addAttribute("skills", skillList);
-        return "skill_index";
+        return "skillHome";
     }
 
+    /**
+     * Get Skill By Id
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public Optional<Skill> getSkillById(@PathVariable Long id) {
-
         return skillService.getSkillById(id);
 
     }
 
+    /**
+     * Add Skill
+     *
+     * @param model
+     * @return
+     */
     @GetMapping("addskill")
-    public String addSkill(Model model){
+    public String addSkill(Model model) {
         Skill skill = new Skill();
         model.addAttribute("skills", skill);
-        return "skill_form";
+        return "addSkill";
     }
 
 
-//    @PostMapping("/saveSkill")
-//    public String saveSkills(@ModelAttribute("skills") Skill skill){
-//        System.out.println("error duplicate: " +skill.toString());
-//        skillService.saveSkill(skill);
-//        return "redirect:/skill/";
-//    }
-
+    /**
+     * Save Skill
+     *
+     * @param skill
+     * @param model
+     * @return
+     */
     @PostMapping("/saveSkill")
-    public String saveSkills(@ModelAttribute("skills") Skill skill, Model model) {
+    public String saveSkill(@ModelAttribute("skills") Skill skill, Model model) {
         try {
             skillService.saveSkill(skill);
-            return "redirect:/skill/"; // Redirect to the skill listing page
+            return "redirect:/skill/";
         } catch (DataIntegrityViolationException ex) {
             // Handle the duplicate skill error
-            System.out.println("duplicate skill: " +ex);
+            System.out.println("duplicate skill: " + ex);
             model.addAttribute("error", "Duplicate entry for skill: " + skill.getName());
-            return "skill_form"; // Return back to the skill form page with error message
+            return "addSkill";
         }
     }
 
 
-    @PostMapping("/add")
-    public Skill createOrUpdateSkill(@RequestBody Skill userskill) {
-        return skillService.createOrUpdateSkill(userskill);
-    }
-
+    /**
+     * Delete Skill By Id
+     *
+     * @param id
+     */
     @DeleteMapping("/{id}")
     public void deleteSkill(@PathVariable Long id) {
         skillService.deleteSkill(id);
     }
 
 
+    /**
+     * Search Skill By Name
+     *
+     * @param search
+     * @param model
+     * @return
+     */
     @GetMapping("/search")
     public String searchSkills(@RequestParam(required = false) String search, Model model) {
         if (search != null && !search.isEmpty()) {
             model.addAttribute("skills", skillService.getSkillByKeyword(search));
         } else {
-            // If no search query provided, display all users
             model.addAttribute("skills", skillService.getAllSkills());
         }
-        return "skill_index"; // Return the name of your Thymeleaf template to display the search results
+        return "skillHome";
     }
 
 }

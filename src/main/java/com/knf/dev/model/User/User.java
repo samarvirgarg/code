@@ -1,5 +1,7 @@
 package com.knf.dev.model.User;
+
 import com.knf.dev.model.Role.UserRole;
+
 import javax.persistence.*;
 
 @Entity
@@ -36,7 +38,6 @@ public class User {
         this.password = password;
         this.role = role;
     }
-
 
 
     public Long getId() {

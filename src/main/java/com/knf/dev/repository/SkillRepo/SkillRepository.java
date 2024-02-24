@@ -1,4 +1,5 @@
 package com.knf.dev.repository.SkillRepo;
+
 import com.knf.dev.model.Organization.Organization;
 import com.knf.dev.model.Skill.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,8 +24,8 @@ public interface SkillRepository extends JpaRepository<Skill, Long> {
     List<Skill> findByKeyword(@Param("search") String search);
 
 
-
-
+    @Query(value = "SELECT * FROM skills ORDER BY skill_id Asc", nativeQuery = true)
+    List<Skill> getskill();
 
 
 }

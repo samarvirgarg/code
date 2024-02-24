@@ -2,7 +2,7 @@ package com.knf.dev.dto;
 
 public class UserRegistrationDto {
 
-    private  long userId;
+    private long userId;
     private String firstName;
     private String lastName;
     private String email;

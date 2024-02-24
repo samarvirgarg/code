@@ -26,6 +26,8 @@ public class CustomCommandLineRunner implements CommandLineRunner {
             if (!userRepository.existsByEmail("master@gmail.com")) {
                 // Admin user does not exist, create it
                 User adminUser = new User("Master", "Software Solutions", "master@gmail.com", passwordEncoder.encode("admin@123"), UserRole.ADMIN);
+                System.out.println("username:" + adminUser.getEmail());
+                System.out.println("password: admin@123");
                 userRepository.save(adminUser);
                 System.out.println("Admin user created successfully");
             } else {
