@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+// Database Operations for skill table
 public interface SkillRepository extends JpaRepository<Skill, Long> {
 
     Optional<Skill> findByName(String name);

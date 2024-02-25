@@ -19,7 +19,7 @@
         <span class="toggle-sidebar"><i class="fa fa-caret-left"></i></span>
         <div class="sidebar-inner">
             <div class="logo-wrapper">
-                <a th:href="@{/}">MSS</a>
+                <a th:href="@{/}">PDMS</a>
             </div>
             <form th:action="@{/organization/}" method="GET">
                 <div class="form-group">
@@ -100,7 +100,7 @@
             </ul>
             <ul class="navigation-list">
                 <li><a href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
-                <li><a href="#" th:href="@{/swagger-ui/}"> <i class="fa fa-book"></i><span>API Doc</span></a></li>
+                <li style="display:none"><a href="#" th:href="@{/swagger-ui/}"> <i class="fa fa-book"></i><span>API Doc</span></a></li>
             </ul>
         </div>
         <div class="main-content-inner">
@@ -110,14 +110,14 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Organization Name</th>
-                        <th scope="col">Organization Email</th>
-                        <th scope="col">Organization City</th>
-                        <th scope="col">Organization State </th>
-                        <th scope="col">Organization Contact </th>
-                        <th scope="col">Organization Skill </th>
-                        <th scope="col">Organization Type </th>
-                        <th scope="col">Actions </th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">City</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Skill</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>

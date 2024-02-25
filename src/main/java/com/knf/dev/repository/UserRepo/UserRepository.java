@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+// Database Operations for user table
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);

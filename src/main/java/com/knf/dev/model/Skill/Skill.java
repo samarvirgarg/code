@@ -6,8 +6,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "Skills")
+// Class to search and filter linked organisation
 public class Skill {
 
     @Id

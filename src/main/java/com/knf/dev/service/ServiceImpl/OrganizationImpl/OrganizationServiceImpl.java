@@ -29,17 +29,21 @@ public class OrganizationServiceImpl implements OrganizationService {
         this.organizationRepository = organizationRepository;
     }
 
+
+    // Method to find and get all organisation from database
     @Override
     public List<Organization> getAllOrganization() {
         return organizationRepository.findAll();
     }
 
-
+    // Method to save an organisation into database
     @Override
     public void saveOrganization(Organization organization) {
         this.organizationRepository.save(organization);
     }
 
+
+    // Method to find and fet information of an organisation using its ID
     @Override
     public Organization getOrganizationById(long OrgID) {
 
@@ -53,6 +57,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organization;
     }
 
+
+    // Method to delete organisation from the database
     @Override
     @Transactional
     public void deleteOrganizationById(long id) {
@@ -61,17 +67,16 @@ public class OrganizationServiceImpl implements OrganizationService {
         this.organizationRepository.deleteById(id);
     }
 
-//    public List<Organization> getByKeywordAndSkills(List<String> skills) {
-//        System.out.println("search is: list of skills is ........" + skills.toString());
-//        return this.organizationRepository.findByKeywordAndSkills(skills);
-//    }
 
+    // Method to get information about the organisation during search and filter
     @Override
     public List<Organization> getByOrganizationOrSkills(String search, List<String> skills) {
         System.out.println("search is: " + search + " and list of skills is ........" + skills.toString());
         return organizationRepository.findByOrganizationORSkills(search, skills);
     }
 
+
+    // Method to get information about the organisation during search and filter
     public List<Organization> getByKeyword(String search) {
         System.out.println("input........." + search);
         return organizationRepository.findByKeyword(search);

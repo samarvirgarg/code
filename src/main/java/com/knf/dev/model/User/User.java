@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+// This class is used to do operations in database
 public class User {
 
     @Id

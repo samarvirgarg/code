@@ -6,6 +6,8 @@ import com.knf.dev.model.Skill.Skill;
 import java.util.List;
 import java.util.Set;
 
+
+//interface for organization class
 public interface OrganizationService {
 
     List<Organization> getAllOrganization();

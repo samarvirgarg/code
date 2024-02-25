@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.knf.dev.dto.UserRegistrationDto;
 import com.knf.dev.model.User.User;
 
+//interface for user class
 public interface UserService extends UserDetailsService {
 
     User save(UserRegistrationDto registrationDto, UserRole role);

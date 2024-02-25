@@ -128,21 +128,15 @@ public class OrganizationController {
 
     /**
      * Save Organization Controller
-     *
+     * Method to create new organization in database
      * @param organization
      * @param model
      * @return
      */
     @PostMapping("/saveOrganization")
     public String saveOrganization(@ModelAttribute("organization") Organization organization, Model model) {
-        try {
             organizationService.saveOrganization(organization);
             return "redirect:/organization/";
-        } catch (DataIntegrityViolationException exception) {
-            model.addAttribute("error", "Duplicate entry for skill: " + organization.getName());
-            return "organizationHome";
-        }
-
     }
 
 

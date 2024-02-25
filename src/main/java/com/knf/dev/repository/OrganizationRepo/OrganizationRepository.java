@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.List;
 
 @Repository
+// Database Operations for organisation table
 public interface OrganizationRepository extends JpaRepository<Organization, Long>, JpaSpecificationExecutor<Organization> {
 
 
@@ -28,9 +29,6 @@ public interface OrganizationRepository extends JpaRepository<Organization, Long
             "    OR o.email LIKE %:search% " +
             "    OR s.name LIKE %:search%")
     List<Organization> findByKeyword(@Param("search") String search);
-
-//    @Query("SELECT DISTINCT o FROM Organization o LEFT JOIN FETCH o.skills s WHERE  (COALESCE(:skills) IS NULL OR s.name IN :skills)")
-//    List<Organization> findByKeywordAndSkills(@Param("skills") List<String> skills);
 
     @Query("SELECT DISTINCT o FROM Organization o " +
             "LEFT JOIN FETCH o.skills s " +

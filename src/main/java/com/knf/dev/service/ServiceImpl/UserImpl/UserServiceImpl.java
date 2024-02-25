@@ -33,6 +33,8 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+
+    // Method to save user into the database
     @Override
     public User save(UserRegistrationDto registrationDto, UserRole role) {
         User user = new User(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getEmail(),
@@ -40,6 +42,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+
+    // Method to Update User into the database
     @Override
     public void saveUser(UserRegistrationDto userDto) {
         Optional<User> optionalUser = userRepository.findById(userDto.getUserId());
@@ -56,11 +60,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    // Method to delete user from the database
     @Override
     public void deleteUserById(long userId) {
         this.userRepository.deleteById(userId);
     }
 
+
+    // Method to find and get user by ID
     @Override
     public User getUserById(long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
@@ -74,6 +82,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    // Method to check whether the login is correct
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -85,21 +94,28 @@ public class UserServiceImpl implements UserService {
                 mapRoleToAuthorities(user.getRole()));
     }
 
+
+    // Method to maps the roles
     private Collection<? extends GrantedAuthority> mapRoleToAuthorities(UserRole role) {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
 
+    // Method to get all the users from the database
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
+
+    // Method to get all user from the database
     @Override
     public List<User> getAllUser(Specification<User> spec) {
         return userRepository.findAll(spec);
     }
 
+
+    // Method to get user from database during search
     @Override
     public List<User> getByKeyword(String search) {
         return userRepository.findByKeyword(search);

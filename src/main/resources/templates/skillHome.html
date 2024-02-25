@@ -19,7 +19,7 @@
         <span class="toggle-sidebar"><i class="fa fa-caret-left"></i></span>
         <div class="sidebar-inner">
             <div class="logo-wrapper">
-                <a th:href="@{/}">MSS</a>
+                <a th:href="@{/}">PDMS</a>
             </div>
 
             <form th:action="@{/skill/search}" method="GET">
@@ -41,7 +41,7 @@
             </ul>
             <ul class="navigation-list">
                 <li><a href="#" th:href="@{/logout}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
-                <li><a href="#" th:href="@{/swagger-ui/}"> <i class="fa fa-book"></i><span>API Doc</span></a></li>
+                <li style="display:none"><a href="#" th:href="@{/swagger-ui/}"> <i class="fa fa-book"></i><span>API Doc</span></a></li>
             </ul>
         </div>
         <div class="main-content-inner">

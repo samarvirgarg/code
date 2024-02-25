@@ -6,6 +6,7 @@ import com.knf.dev.model.Skill.Skill;
 import java.util.List;
 import java.util.Optional;
 
+// //interface for skill class
 public interface SkillService {
 
     List<Skill> getAllSkills();

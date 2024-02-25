@@ -1,5 +1,6 @@
 package com.knf.dev.dto;
 
+// This class is additional layer created to save user objet into the databse.
 public class UserRegistrationDto {
 
     private long userId;
@@ -8,6 +9,8 @@ public class UserRegistrationDto {
     private String email;
     private String password;
 
+
+    // Role could be either user or admin only
     private String role;
 
     public UserRegistrationDto() {

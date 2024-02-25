@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 @Entity
 @Table(name = "Organization")
+// This class is used to run operations on organisation object and used to search by students. It will be linked to skills
 public class Organization {
 
     @Id
@@ -40,10 +42,13 @@ public class Organization {
     @Column(name = "about", length = 100000)
     private String about;
 
+    // Organisation can be a business or community partner
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private OrganizationType type;
 
+
+    // This is used to link skills with organisations
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Skill> skills = new ArrayList<>();
 
